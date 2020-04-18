@@ -1,0 +1,69 @@
+{
+  "name": "node_db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "ts-node-dev --respawn --transpileOnly ./index.ts",
+    "start:watch": "nodemon",
+    "prod": "tsc && node ./build/app.js",
+    "test": "jest --coverage --verbose"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "*"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+  "engines": {
+    "node": "12.14.1"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarishRMaryada/node_db.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarishRMaryada/node_db/issues"
+  },
+  "homepage": "https://github.com/HarishRMaryada/node_db#readme",
+  "dependencies": {
+    "@types/config": "0.0.36",
+    "@types/mongoose": "^5.7.12",
+    "config": "^3.3.1",
+    "mongoose": "^5.9.9",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "ts-jest": "^25.4.0"
+  }
+}

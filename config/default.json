@@ -1,0 +1,9 @@
+{
+    "mongoose":{
+        "dbConfig":{
+            "host":"localhost",
+            "port":27017,
+            "dbName":"db_test"
+        }
+    }
+}
