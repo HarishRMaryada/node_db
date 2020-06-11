@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package userPackage;
+
+service User {
+    rpc create(reqUser) returns (resUser);
+    rpc userlist(reqVoid) returns (resUsers);
+    rpc listStream(reqVoid) returns (stream resUser); //stream of user
+}
+message reqVoid {
+
+}
+
+message reqUser {
+    string _id =1;
+    string name =2;
+    int32 price =3;
+}
+
+message resUser {
+    string _id =1;
+    string name = 2;
+    int32 price =3;
+}
+
+message resUsers {
+    repeated resUser users = 1;
+}
+
+

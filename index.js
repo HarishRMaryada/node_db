@@ -1,5 +1,3 @@
-const UserModel = require('./users')
-
-module.exports = {
-    UserModel
-}
+require("app-module-path").addPath(__dirname);
+const grpcServer = require("src/rpc-proto")
+grpcServer.start();
