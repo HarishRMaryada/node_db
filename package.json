@@ -54,9 +54,12 @@
   },
   "homepage": "https://github.com/HarishRMaryada/node_db#readme",
   "dependencies": {
+    "@grpc/proto-loader": "^0.5.4",
     "@types/config": "0.0.36",
     "@types/mongoose": "^5.7.12",
+    "app-module-path": "^2.2.0",
     "config": "^3.3.1",
+    "grpc": "^1.24.3",
     "mongoose": "^5.9.9",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
