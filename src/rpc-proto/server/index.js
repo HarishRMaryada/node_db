@@ -5,33 +5,39 @@ const packageDefinition = protoLoader.loadSync(paths, {});
 const grpcObj = grpc.loadPackageDefinition(packageDefinition);
 const productPackage = grpcObj.productPackage;
 const userPackage = grpcObj.userPackage;
+const productModel = require("../../models/products")
 
 const server = new grpc.Server();
 server.bind("0.0.0.0:50051", grpc.ServerCredentials.createInsecure()); //need to config
-let products = [{ _id: "product 1", name: "myproduct", price: 44 }]
-function create(call, callback) {
-  products.push(call.request)
-  callback(null, { _id: "product 1", name: "myproduct", price: 20 }); //resJson must match with proto
-}
+// let products = [{ _id: "product 1", name: "myproduct", price: 44 }]
+// function create(call, callback) {
+//   products.push(call.request)
+//   callback(null, { _id: "product 1", name: "myproduct", price: 20 }); //resJson must match with proto
+// }
+
+
 function list(call, callback) {
-  callback(null,{"products":products})
+  let data = productModel.list()  
+  console.log(data)
+  callback(null,{"products":productModel.list()})
 }
 function listStream(call, callback) {
   products.forEach(p => call.write(p))
   call.end()
 }
+console.log("STARTED GRPC")
 server.addService(productPackage.Product.service, {
-  create: create,
+  create: productModel.create(),
   list: list,
   listStream:listStream
 });
 
-const users = [ {_id: "bbn", name: "none", price: 50}]
-function userlist(call, callback) {
-  callback(null,{"users":users})
-}
+// const users = [ {_id: "bbn", name: "none", price: 50}]
+// function userlist(call, callback) {
+//   callback(null,{"users":users})
+// }
 
-server.addService(userPackage.User.service, {
-  userlist: userlist
-});
+// server.addService(userPackage.User.service, {
+//   userlist: userlist
+// });
 module.exports = server
