@@ -19,9 +19,7 @@ function test() {
     console.log("Working")
     // list()
     // create()
-    const grpcServer = require("./src/rpc-proto")
-    grpcServer.start();
-
+    require("./src/rpc-proto")
 }
 
 test()

@@ -18,12 +18,11 @@ message reqProduct {
 }
 
 message resProduct {
-    string name = 2;
-    int32 price =3;
+    string name = 1;
 }
 
 message resProducts {
-    repeated resProduct products = 1;
+    repeated resProduct results = 1;
 }
 
 
