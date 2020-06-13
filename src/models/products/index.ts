@@ -1,25 +1,22 @@
-import { Product, ProductModel } from "./productSchema"
+import { Product, ProductModel, IProduct } from "./productSchema"
 import { DB } from "../Index"
 
-export async function list() {
-    let data = await DB.Models.Product.find({}).select({ name: 1, _id: 0 })
-    return data
+export const list = async () => {
+    try {
+        return await DB.Models.Product.find({})
+    } catch (error) {
+        console.log(error) //implement error handler
+    }
 }
 
-export const create = () => {
-    let contact = new DB.Models.Product(
-        {
-            name: "Product1",
-            price: 20
-        }
-    );
-    contact.save((err) => {
-        if (err) {
-            return err;
-        }
-        console.log("CREATED")
-        return 1
-    });
+export const create = async (product: IProduct) => {
+    try {
+        let contact = new DB.Models.Product(product);
+        return await contact.save();
+    }
+    catch (error) {
+        console.log(error) //implement error handler
+    }
 }
 
-export { Product, ProductModel }
+export { Product, ProductModel, IProduct }

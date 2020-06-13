@@ -1,35 +1,28 @@
 const grpc = require("grpc");
 const protoLoader = require("@grpc/proto-loader");
-const paths = require("./paths")
+import paths from "./paths"
 const packageDefinition = protoLoader.loadSync(paths, {});
 const grpcObj = grpc.loadPackageDefinition(packageDefinition);
 const productPackage = grpcObj.productPackage;
 const userPackage = grpcObj.userPackage;
-const DB = require("../../models/DataBaseController")
-const productModel = require("../../models/products")
+import { list, create } from "./calls/products"
 
 
 const server = new grpc.Server();
 server.bind("0.0.0.0:50055", grpc.ServerCredentials.createInsecure()); //need to config
 let products = [{ name: "myproduct" }]
-function create(call: any, callback: any) {
-  products.push(call.request)
-  callback(null, { _id: "product 1", name: "myproduct", price: 20 }); //resJson must match with proto
-}
-function list(call: any, callback: any) {
-  let data = productModel.list()
-  data.then(function (result: any) {
-    callback(null, { "results": result })
-  })
+// function create(call: any, callback: any) {
+//   products.push(call.request)
+//   callback(null, { _id: "product 1", name: "myproduct", price: 20 }); //resJson must match with proto
+// }
 
-}
 function listStream(call: any, callback: any) {
   products.forEach(p => call.write(p))
   call.end()
 }
 server.addService(productPackage.Product.service, {
   create: create,
-  list: list,
+  "list": list,
   listStream: listStream
 });
 
@@ -41,5 +34,4 @@ function userlist(call: any, callback: any) {
 server.addService(userPackage.User.service, {
   userlist: userlist
 });
-server.start()
-module.exports = server 
+export default server

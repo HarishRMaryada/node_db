@@ -1,14 +1,14 @@
 import { connect, connection, Collection, Connection } from "mongoose"
-import config,{IConfig} from "config"
+import config, { IConfig } from "config"
 import { Product } from "./products"
 import { IModels } from "./models.types";
 
-interface IConfigDB extends IConfig{
-dbConfig:{
-    host:string;
-     port:number;
-      dbName :string;
-}
+interface IConfigDB extends IConfig {
+    dbConfig: {
+        host: string;
+        port: number;
+        dbName: string;
+    }
 }
 
 export class DB {
@@ -17,10 +17,9 @@ export class DB {
     private _models: IModels;
     private constructor() {
         // @ts-ignore
-        const {dbConfig:{host, port, dbName }}:IConfigDB = config
+        const { dbConfig: { host, port, dbName } }: IConfigDB = config
         let url = `mongodb://${host}:${port}/${dbName}`
-        let uri: string = 'mongodb://localhost:27017/test'
-        connect(url, { useNewUrlParser: true,useUnifiedTopology:true })
+        connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
         this._db = connection;
         this._db.on('open', this.connected);
         this._db.on('error', this.error);

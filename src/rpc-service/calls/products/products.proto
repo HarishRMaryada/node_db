@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package productPackage;
+
+service Product {
+    rpc create(ProductRequest) returns (ProductResponse);
+    rpc list(VoidRequest) returns (ProductsResponse);
+    rpc listStream(VoidRequest) returns (stream ProductResponse); //stream of product
+}
+message VoidRequest {
+
+}
+
+message ProductRequest {
+    string _id = 1;
+    string name = 2;
+    int32 price = 3;
+}
+
+message ProductResponse {
+    string _id = 1;
+    string name = 2;
+    int32 price = 3;
+}
+
+message ProductsResponse {
+    repeated ProductResponse results = 1;
+}
+
+

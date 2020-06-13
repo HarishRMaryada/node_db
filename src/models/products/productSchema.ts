@@ -1,6 +1,6 @@
 import { Document, Model, Schema, model } from "mongoose"
 
-declare interface IProduct extends Document {
+export declare interface IProduct extends Document {
     name: string,
     price: number
 }
