@@ -16,7 +16,7 @@ export const create = () => {
     contact.save((err) => {
         if (err) {
             return err;
-        } ``
+        }
         console.log("CREATED")
         return 1
     });
