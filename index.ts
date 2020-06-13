@@ -7,9 +7,9 @@ export default {
 
 // import { Database } from './DatabaseContoller'
 
-import {list,create} from "./src/models/products"
+import { list, create } from "./src/models/products"
 
-function test (){
+function test() {
     // let organization = new Database.Models.Organization({
     //     name: "test" //add value from req object
     // })
