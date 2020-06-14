@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { Product, ProductModel, IProduct } from "./productSchema"
+import { Product, ProductModel } from "./product.schema"
+import { IProduct } from "./product.types"
 import { DB } from "../index"
 
 export const list = async () => {

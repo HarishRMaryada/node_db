@@ -1,10 +1,8 @@
 import { Model, model } from "mongoose"
-import { IBaseSchema, timeStamps } from "../utils/baseSchema"
+import { timeStamps } from "../utils/baseSchema"
+import { IProduct } from "./product.types"
 
-export declare interface IProduct extends IBaseSchema {
-    name: string,
-    price: number
-}
+
 
 export interface ProductModel extends Model<IProduct> {
 
