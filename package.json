@@ -56,10 +56,12 @@
   "dependencies": {
     "@grpc/proto-loader": "^0.5.4",
     "@types/config": "0.0.36",
+    "@types/lodash": "^4.14.155",
     "@types/mongoose": "^5.7.12",
     "app-module-path": "^2.2.0",
     "config": "^3.3.1",
     "grpc": "^1.24.3",
+    "lodash": "^4.17.15",
     "mongoose": "^5.9.9",
     "ts-node-dev": "^1.0.0-pre.44"
   },

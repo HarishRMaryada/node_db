@@ -1,5 +1,5 @@
 import { Product, ProductModel, IProduct } from "./productSchema"
-import { DB } from "../Index"
+import { DB } from "../index"
 
 export const list = async () => {
     try {
