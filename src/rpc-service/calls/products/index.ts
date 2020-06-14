@@ -14,6 +14,20 @@ function create(call: any, callback: any) {
     })
 }
 
+function listStream(call: any, callback: any) {
+    //products.forEach(p => call.write(p))
+    call.end()
+}
 
-export { list, create }
+const productServices = (server: any, grpcObj: any) => {
+    const productPackage = grpcObj.productPackage;
+    server.addService(productPackage.Product.service, {
+        create: create,
+        list: list,
+        listStream: listStream
+    });
+}
+
+
+export { productServices }
 

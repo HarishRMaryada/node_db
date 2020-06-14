@@ -3,5 +3,9 @@
             "host":"localhost",
             "port":27017,
             "dbName":"db_test_1"
+        },
+        "grpcService":{
+            "host":"0.0.0.0",
+            "port":50055
         }
 }
