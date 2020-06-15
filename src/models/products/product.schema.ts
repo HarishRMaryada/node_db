@@ -15,7 +15,7 @@ export class Product {
             name: { type: String, required: true },
             price: { type: Number, required: true }
         }
-        this._model = model<IProduct>('Product', timeStamps(schema))
+        this._model = model<IProduct>('product', timeStamps(schema))
     }
     public get model(): Model<IProduct> {
         return this._model

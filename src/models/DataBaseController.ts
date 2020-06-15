@@ -1,7 +1,9 @@
 import { connect, connection, Collection, Connection } from "mongoose"
 import config, { IConfig } from "config"
-import { Product } from "./products"
 import { IModels } from "./models.types";
+import { Product } from "./products"
+import { User } from "./users";
+import { AccessToken, RefreshToken } from "./tokens";
 
 interface IConfigDB extends IConfig {
     dbConfig: {
@@ -25,7 +27,10 @@ export class DB {
         this._db.on('error', this.error);
 
         this._models = {
-            Product: new Product().model
+            Product: new Product().model,
+            User: new User().model,
+            AccessToken: new AccessToken().model,
+            RefreshToken: new RefreshToken().model
             // this is where we initialise all models
         }
     }
