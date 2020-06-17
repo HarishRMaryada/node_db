@@ -12,7 +12,8 @@ export class RefreshToken {
     constructor() {
         const schema = new Schema({
             refreshToken: { type: String, required: true },
-            user: { type: Schema.Types.ObjectId, required: true }
+            user: { type: Schema.Types.ObjectId, required: true },
+            expiryDate: { type: Date } //max limit needs to be added by config
         })
         this._model = model<IRefreshToken>('refreshToken', schema)
     }

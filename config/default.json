@@ -7,5 +7,12 @@
         "grpcService":{
             "host":"0.0.0.0",
             "port":50055
+        },
+        "tokens":{
+            "accessTokenExp":10,
+            "refreshTokenExp":30
+        },
+        "auth":{
+            "saltRounds":10
         }
 }

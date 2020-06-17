@@ -3,28 +3,43 @@ syntax = "proto3";
 package userPackage;
 
 service User {
-    rpc create(reqUser) returns (resUser);
-    rpc userlist(reqVoid) returns (resUsers);
-    rpc listStream(reqVoid) returns (stream resUser); //stream of user
+    rpc list(voidRequest) returns (listUsersResponse);
+    rpc getUserByUsername (getUserByUsernameRequest) returns (getUserByUsernameResponse);
+    rpc verifyPassword (verifyPasswordRequest) returns (verifyPasswordResponse);
 }
-message reqVoid {
+message voidRequest {
 
 }
 
-message reqUser {
+message getUserByUsernameRequest{
+string username =1;
+}
+
+message getUserByUsernameResponse{
+string username=1;
+string email =2;
+}
+
+message verifyPasswordRequest{
+string password =1;
+}
+
+message verifyPasswordResponse{
+bool valid=1;
+}
+
+message userRequest {
     string _id =1;
     string name =2;
     int32 price =3;
 }
 
-message resUser {
-    string _id =1;
-    string name = 2;
-    int32 price =3;
+message userResponse {
+    string email =1;
 }
 
-message resUsers {
-    repeated resUser users = 1;
+message listUsersResponse {
+    repeated userResponse users = 1;
 }
 
 

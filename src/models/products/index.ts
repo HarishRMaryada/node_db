@@ -1,11 +1,11 @@
 import _ from "lodash";
 import { Product, ProductModel } from "./product.schema"
 import { IProduct } from "./product.types"
-import { DB } from "../index"
+// import { DB } from "../index"
 
 export const list = async () => {
     try {
-        return await DB.Models.Product.find({})
+        //return await DB.Models.Product.find({})
     } catch (error) {
         console.log(error) //implement error handler
     }
@@ -13,8 +13,8 @@ export const list = async () => {
 
 export const create = async (doc: IProduct) => {
     try {
-        let product = new DB.Models.Product(doc);
-        return await product.save();
+        //let product = new DB.Models.Product(doc);
+        //return await product.save();
     }
     catch (error) {
         console.log(error) //implement error handler
@@ -23,13 +23,13 @@ export const create = async (doc: IProduct) => {
 
 export const update = async (doc: IProduct) => {
     try {
-        let product = await DB.Models.Product.findById(doc._id);
-        if (!product) {
-            console.log("No Product found")
-            return "something"
-        }
-        product = _.assign(product, doc)
-        return await product.save();
+        // let product = await DB.Models.Product.findById(doc._id);
+        // if (!product) {
+        //     console.log("No Product found")
+        //     return "something"
+        // }
+        // product = _.assign(product, doc)
+        // return await product.save();
     }
     catch (error) {
         console.log(error) //implement error handler

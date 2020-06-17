@@ -1,40 +1,32 @@
 import _ from "lodash";
-import { User, UserModel } from "./user.schema"
-import { IUser } from "./user.types"
-import { DB } from "../index"
+import { IUser, IUserModel } from "./user.types"
+import UserModel from "./user.schema"
 
-export const list = async () => {
+export const getUserByUsername = async (username: string) => {
     try {
-        return await DB.Models.User.find({})
+        return await UserModel.findOne({ $or: [{ 'email': username }, { 'phone': username }] })
     } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-export const create = async (doc: IUser) => {
+export const verifyPassword = async (password: string) => {
     try {
-        let user = new DB.Models.User(doc);
-        return await user.save();
-    }
-    catch (error) {
+        return await new UserModel().schema.methods.comparePassword(password)
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-export const update = async (doc: IUser) => {
+export const list = async ({ }) => {
     try {
-        let user = await DB.Models.User.findById(doc._id);
-        if (!user) {
-            console.log("No User found")
-            return "something"
-        }
-        user = _.assign(user, doc)
-        return await user.save();
-    }
-    catch (error) {
+        console.log("HIT")
+        return await UserModel.find({}).select({ email: 1, _id: 0 })
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
 
-export { User, UserModel, IUser }
+
+export { IUser, IUserModel }

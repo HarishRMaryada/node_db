@@ -1,12 +1,13 @@
 import { Document, Schema } from "mongoose"
 import _ from "lodash";
+import { IUser } from "../users"
 
 
 export declare interface IBaseSchema extends Document {
     createdAt: Date,
-    createdBy: string,
+    createdBy: IUser['_id'],
     modifiedAt: Date,
-    modifiedBy: string
+    modifiedBy: IUser['_id']
 }
 
 const schema = {
