@@ -1,64 +1,59 @@
 import _ from "lodash";
-import { AccessToken, AccessTokenModel } from "./accessToken.schema"
-import { RefreshToken, RefreshTokenModel } from "./refreshToken.schema"
+import * as crypto from "crypto";
 import { IAccessToken, IRefreshToken } from "./token.types"
-import { DB } from "../index"
+import AccessTokenModel from "./accessToken.schema"
+import RefreshTokenModel from "./refreshToken.schema"
 
-
-//access-token
-export const createAccessToken = async (doc: IAccessToken) => {
+export const generateAccessToken = async (userId: string) => {
     try {
-        let accessToken = new DB.Models.AccessToken(doc);
-        return await accessToken.save();
-    }
-    catch (error) {
+        let doc = {
+            accessToken: crypto.randomBytes(256).toString('hex'),
+            user: userId
+        }
+        let token = new AccessTokenModel(doc);
+        return await token.save(); //control data flow
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-export const validateAccessToken = async (_id: string) => {
+export const generateRefreshToken = async (userId: string) => {
     try {
-        let accessToken = DB.Models.AccessToken.findById(_id);
-        if (!accessToken) return false
-        return true;
-    }
-    catch (error) {
+        let doc = {
+            refreshToken: crypto.randomBytes(256).toString('hex'),
+            user: userId
+        }
+        let token = new RefreshTokenModel(doc);
+        return await token.save(); //control data flow
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-export const deletAccessTokenById = async (_id: string) => {
+export const validateAccessToken = async ({ token, user }: any) => {
     try {
-        return await DB.Models.AccessToken.deleteOne({ _id: _id })
-    }
-    catch (error) {
+        return await AccessTokenModel.findOne({ accessToken: token, user: user, expiryDate: { $gte: new Date() } }) ? true : false
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-
-
-
-//refresh-token
-export const createRefreshToken = async (doc: IRefreshToken) => {
+export const validateRefreshToken = async ({ refreshToken, user }: any) => {
     try {
-        let refreshToken = new DB.Models.RefreshToken(doc);
-        return await refreshToken.save();
-    }
-    catch (error) {
+        return await RefreshTokenModel.findOne({ refreshToken: refreshToken, user: user, expiryDate: { $gte: new Date() } }) ? true : false
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-export const deleteExpiredRefreshTokens = async () => { //exception for clearing all tokens on update/someother
+export const generateAccessTokenByRefreshToken = async ({ refreshToken, user }: any) => {
     try {
-        return await DB.Models.AccessToken.find({ expiryDate: { $lt: new Date() } }); //deletes all access tokens 
-    }
-    catch (error) {
+        if (await validateRefreshToken({ refreshToken, user })) {
+            return await generateAccessToken(user)
+        }
+    } catch (error) {
         console.log(error) //implement error handler
     }
 }
 
-
-
-export { IAccessToken, IRefreshToken, AccessToken, RefreshToken, AccessTokenModel, RefreshTokenModel }
+export { IAccessToken, IRefreshToken }

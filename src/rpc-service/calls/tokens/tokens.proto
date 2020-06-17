@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package tokenPackage;
+
+service Token {
+    rpc generateAccessAndRefreshToken (generateARTokenRequest) returns (generateARTokenResponse);
+    rpc generateAccessTokenByRefreshToken (generateATByRTRequest) returns (generateATByRTResponse);
+    rpc validateAccessToken (validateTokenRequest) returns (validateTokenResponse);
+}
+
+message generateARTokenRequest{
+string userId =1;
+}
+
+message generateARTokenResponse{
+string accessToken=1;
+string refreshToken =2;
+}
+
+message generateATByRTRequest{
+string refreshToken =1;
+string user =2;
+}
+
+message generateATByRTResponse{
+string accessToken=1;
+}
+
+message validateTokenRequest{
+string token =1;
+string user = 2;
+}
+
+message validateTokenResponse{
+bool valid =1;
+}
+
